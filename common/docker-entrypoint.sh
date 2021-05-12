@@ -118,6 +118,30 @@ chown www-data:www-data app/config/local.php
 mkdir -p /var/www/html/app/logs
 chown www-data:www-data /var/www/html/app/logs
 
+if [ -n "$MAUTIC_URL" ] && [ -n "$MAUTIC_ADMIN_EMAIL" ] && [ -n "$MAUTIC_ADMIN_PASSWORD" ]; then
+  echo >&2 "========================================================================"
+  echo >&2
+  echo >&2 "Attempting automated mautic installation..."
+
+  INSTALL_PARAMS=(--db_backup_tables="$MAUTIC_INSTALL_BACKUP_TABLES")
+
+  if [ -n "$MAUTIC_INSTALL_FORCE" ]; then
+    INSTALL_PARAMS+=(-f)
+  fi
+
+  if [ -n "$MAUTIC_ADMIN_USERNAME" ]; then
+    INSTALL_PARAMS+=(--admin_username="$MAUTIC_ADMIN_USERNAME")
+  fi
+  if [ -n "$MAUTIC_ADMIN_FIRSTNAME" ]; then
+    INSTALL_PARAMS+=(--admin_firstname="$MAUTIC_ADMIN_FIRSTNAME")
+  fi
+  if [ -n "$MAUTIC_ADMIN_LASTNAME" ]; then
+    INSTALL_PARAMS+=(--admin_lastname="$MAUTIC_ADMIN_LASTNAME")
+  fi
+
+  php /var/www/html/bin/console mautic:install "$MAUTIC_URL" ${INSTALL_PARAMS[@]}
+fi
+
 if [[ "$MAUTIC_RUN_CRON_JOBS" == "true" ]]; then
     if [ ! -e /var/log/cron.pipe ]; then
         mkfifo /var/log/cron.pipe

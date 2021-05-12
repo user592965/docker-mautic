@@ -54,6 +54,13 @@ if(array_key_exists('PHP_INI_DATE_TIMEZONE', $_ENV)) {
     $parameters['default_timezone'] = $_ENV['PHP_INI_DATE_TIMEZONE'];
 }
 
+if(array_key_exists('MAUTIC_ADMIN_EMAIL', $_ENV)) {
+    $parameters['admin_email'] = $_ENV['MAUTIC_ADMIN_EMAIL'];
+}
+if(array_key_exists('MAUTIC_ADMIN_PASSWORD', $_ENV)) {
+    $parameters['admin_password'] = $_ENV['MAUTIC_ADMIN_PASSWORD'];
+}
+
 // anything starting MAUTIC_CONFIG_ should be assumed to be a config variable,
 // so lowercased and shoved as-is into the parameters
 foreach($_ENV as $k=>$v) {
