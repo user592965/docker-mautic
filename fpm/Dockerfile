@@ -48,6 +48,11 @@ ENV MAUTIC_DB_USER root
 ENV MAUTIC_DB_NAME mautic
 ENV MAUTIC_DB_PORT 3306
 
+# Default install configuration parameters
+ENV MAUTIC_ADMIN_EMAIL root@example.org
+ENV MAUTIC_ADMIN_PASSWORD password
+ENV MAUTIC_URL localhost
+
 # Setting PHP properties
 ENV PHP_INI_DATE_TIMEZONE='UTC' \
     PHP_MEMORY_LIMIT=512M \
