@@ -64,9 +64,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 VOLUME /data
 
 # Define Mautic version and expected SHA1 signature
-# ENV MAUTIC_VERSION 4.0.0-rc
-# ENV MAUTIC_SHA1 ded92ab7403f3c5c5ef0844b0933e0965502d7a5
-
 ENV MAUTIC_VERSION=${MAUTIC_VERSION:-4.0.0}
 ENV MAUTIC_SHA1=${MAUTIC_SHA1:-6e283b4fbfe484ea85de0f9dcec33473a8827de75}
 
